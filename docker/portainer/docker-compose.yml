@@ -1,0 +1,23 @@
+version: '2'
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: $CONTAINER_NAME
+    restart: unless-stopped
+    environment:
+      - PORTAINER_DOMAIN=$PORTAINER_DOMAIN
+      - CONTAINER_NAME=$CONTAINER_NAME
+      - DATA_FOLDER=$DATA_FOLDER
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 10443:9443
+    command:
+            --ssl
+            --sslcert /certs/fullchain1.pem
+            --sslkey /certs/privkey1.pem
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $DATA_FOLDER:/data
+      - /etc/swag/etc/letsencrypt/archive/$PORTAINER_DOMAIN:/certs:ro
