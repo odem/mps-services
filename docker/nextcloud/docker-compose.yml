@@ -3,7 +3,7 @@ services:
   nextcloud:
     build: .
     container_name: nextcloud
-    restart: always
+      #restart: always
     hostname: 'nextcloud.$NEXTCLOUD_DOMAIN'
     ports:
       - '11443:443'
@@ -17,5 +17,5 @@ services:
       - '$DATA_FOLDER/data:/var/www/html/data'
       - '$DATA_FOLDER/../apache2.conf:/etc/apache2/sites-enabled/default-ssl.conf'
       - '$DATA_FOLDER/../apache2.conf:/etc/apache2/sites-available/default-ssl.conf'
-      - '/etc/letsencrypt/etc/letsencrypt/live/$NEXTCLOUD_DOMAIN:/certs:ro'
+      - '/etc/letsencrypt/etc/letsencrypt/archive/$NEXTCLOUD_DOMAIN:/certs:ro'
     shm_size: '256m'

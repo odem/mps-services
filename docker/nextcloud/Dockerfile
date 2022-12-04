@@ -8,4 +8,4 @@ RUN cd /etc/apache2/mods-enabled \
     && cd /etc/apache2/sites-enabled \
     && ln -s ../sites-available/apache2.conf \
 	&& mkdir -p /certs
-ENTRYPOINT ["apache2-foreground"]
+ENTRYPOINT ["/entrypoint.sh", "apache2-foreground"]
