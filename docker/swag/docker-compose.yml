@@ -3,7 +3,7 @@ version: "2"
 services:
   swag:
     image: lscr.io/linuxserver/swag:latest
-    container_name: swag
+    container_name: $CONTAINER_NAME
     cap_add:
       - NET_ADMIN
     environment:
@@ -27,5 +27,5 @@ services:
       - $DATA_FOLDER:/config
     ports:
       - 443:443
-      - 80:80 #optional
+      #- 80:80 #optional
     restart: unless-stopped
