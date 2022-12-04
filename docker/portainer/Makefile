@@ -19,6 +19,6 @@ down:
 restart: build
 	docker-compose restart
 exec:
-	docker exec -it $(CONTAINER_NAME) bash
+	@echo "$(CONTAINER_NAME): No shell installed! Skipping..."
 purge: down
 	sudo rm -rf $(DATA_FOLDER)/*
