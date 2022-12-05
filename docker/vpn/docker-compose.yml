@@ -1,0 +1,38 @@
+version: '2'
+services:
+  openvpn_bridged:
+    build: .
+    container_name: openvpn_bridged
+    restart: always
+    hostname: 'openvpn_bridged'
+    environment:
+      - DATA_FOLDER=$DATA_FOLDER
+      - OPENVPN_DOMAIN=$OPENVPN_DOMAIN
+      - OPENVPN_MODE=bridge
+    volumes:
+      - '$DATA_FOLDER/certs/$OPENVPN_DOMAIN/srv:/etc/openvpn/server/$OPENVPN_DOMAIN'
+      - '$DATA_FOLDER/logs/:/var/log/openvpn/'
+    shm_size: '512m'
+    network_mode: "host"
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+  openvpn_ptp:
+    build: .
+    container_name: openvpn_ptp
+    restart: always
+    hostname: 'openvpn_ptp'
+    environment:
+      - DATA_FOLDER=$DATA_FOLDER
+      - OPENVPN_DOMAIN=$OPENVPN_DOMAIN
+      - OPENVPN_MODE=ptp
+    volumes:
+      - '$DATA_FOLDER/certs/$OPENVPN_DOMAIN/srv:/etc/openvpn/server/$OPENVPN_DOMAIN'
+      - '$DATA_FOLDER/logs/:/var/log/openvpn/'
+    shm_size: '512m'
+    network_mode: "host"
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
