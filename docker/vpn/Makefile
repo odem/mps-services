@@ -1,8 +1,7 @@
 
 include .env
-
-CFG_FILE = $(DATA_FOLDER)/certs/$(OPENVPN_DOMAIN)/srv/$(OPENVPN_DOMAIN)_bridged.conf
-CERT_FOLDER = $(DATA_FOLDER)/certs/$(OPENVPN_DOMAIN) 
+CERT_FOLDER = $(DATA_FOLDER)/certs/$(OPENVPN_DOMAIN)
+CFG_FILE = $(CERT_FOLDER)/srv/$(OPENVPN_DOMAIN)_bridged.conf
 RSA_SIZE=2048
 #RSA_SIZE=1024
 
@@ -13,6 +12,12 @@ all: build up
 
 prepare:
 	mkdir -p $(DATA_FOLDER)
+	mkdir -p $(DATA_FOLDER)/logs
+	mkdir -p $(CERT_FOLDER)/srv/status
+	touch $(DATA_FOLDER)/logs/$(OPENVPN_DOMAIN)_ptp.log
+	touch $(DATA_FOLDER)/logs/$(OPENVPN_DOMAIN)_bridged.log
+	touch $(CERT_FOLDER)/srv/status/ipp.txt
+	touch $(CERT_FOLDER)/srv/status/openvpn_status.log
 	sudo apt install uml-utilities openvpn
 	
 $(CFG_FILE): 
