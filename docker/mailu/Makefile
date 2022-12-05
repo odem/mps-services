@@ -20,5 +20,7 @@ restart: build
 	docker-compose restart
 exec:
 	docker exec -it $(CONTAINER_NAME) bash
+account:
+	docker-compose -p mailu exec admin flask mailu admin postmaster $(DOMAIN) PASSWORD
 purge: down
 	sudo rm -rf $(DATA_FOLDER)/*

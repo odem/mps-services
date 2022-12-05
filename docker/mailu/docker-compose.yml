@@ -120,12 +120,12 @@ services:
 
   # Webmail
   webmail:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}roundcube:${MAILU_VERSION:-1.9}
+    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}rainloop:${MAILU_VERSION:-1.9}
     restart: always
     env_file: .env
     volumes:
       - "$DATA_FOLDER/webmail:/data"
-      - "$DATA_FOLDER/overrides/roundcube:/overrides:ro"
+      - "$DATA_FOLDER/overrides/rainloop:/overrides:ro"
     depends_on:
       - imap
       - resolver
