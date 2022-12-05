@@ -1,0 +1,29 @@
+version: '2'
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'gitlab.$GITLAB_DOMAIN'
+    environment:
+      GITLAB_DOMAIN: $GITLAB_DOMAIN
+      GITLAB_SKIP_UNMIGRATED_DATA_CHECK: "true"
+      GITLAB_OMNIBUS_CONFIG: |
+        registry_external_url "https://registry.$GITLAB_DOMAIN"
+        mattermost_external_url "https://mattermost.$GITLAB_DOMAIN"
+        external_url 'https://gitlab.$GITLAB_DOMAIN:10443'
+        gitlab_rails['gitlab_shell_ssh_port'] = 10022
+        letsencrypt['enable'] = true
+        letsencrypt['contact_emails'] = ['gitlab@$GITLAB_DOMAIN']        
+        letsencrypt['auto_renew_hour'] = "12"
+        letsencrypt['auto_renew_minute'] = "30"
+        letsencrypt['auto_renew_day_of_month'] = "*/7"
+    ports:
+      - '10443:10443'
+
+      - '0.0.0.0:10022:22'
+    volumes:
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '256m'
+
