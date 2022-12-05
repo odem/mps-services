@@ -3,8 +3,8 @@ include .env
 
 CFG_FILE = $(DATA_FOLDER)/certs/$(OPENVPN_DOMAIN)/srv/$(OPENVPN_DOMAIN)_bridged.conf
 CERT_FOLDER = $(DATA_FOLDER)/certs/$(OPENVPN_DOMAIN) 
-#RSA_SIZE=2048
-RSA_SIZE=1024
+RSA_SIZE=2048
+#RSA_SIZE=1024
 
 default:all
 .PHONY: prepare build-conf build-container up down restart exec
@@ -13,7 +13,7 @@ all: build up
 
 prepare:
 	mkdir -p $(DATA_FOLDER)
-	sudo apt install uml-utilities
+	sudo apt install uml-utilities openvpn
 	
 $(CFG_FILE): 
 	./create_certs_vpn.bash -o docker-data/certs -R 194.163.136.152 \
@@ -26,7 +26,7 @@ build: prepare $(CFG_FILE)
 	docker-compose build
 
 up: build
-	docker-compose up -d
+	sudo docker-compose up -d
 
 down:
 	docker-compose down

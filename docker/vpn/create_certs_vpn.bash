@@ -192,7 +192,7 @@ function do_action_ca() {
             echo "$CURRENT_PASS" > $OUT/$SET_NAME/$TYPE/pass.txt
             echo "01" > $OUT/$SET_NAME/$TYPE/serial
             chmod -R 700 $OUT/$SET_NAME/$TYPE/
-            sudo openvpn --genkey --secret $OUT/$SET_NAME/$TYPE/$CFG_TAKEY
+            sudo openvpn --genkey secret $OUT/$SET_NAME/$TYPE/$CFG_TAKEY
             if [ -f $OUT/$SET_NAME/$TYPE/$CFG_TAKEY ] ; then
                 sudo chown $USER:$USER $OUT/$SET_NAME/$TYPE/$CFG_TAKEY 
                 echo "Done!"
