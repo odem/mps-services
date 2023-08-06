@@ -13,7 +13,7 @@ build:
 	sudo chmod g+rw $(DATA_FOLDER)
 	docker-compose build
 up: build
-	docker-compose up -d 
+	docker-compose up -d
 down:
 	docker-compose down
 restart: build
