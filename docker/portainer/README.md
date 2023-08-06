@@ -3,7 +3,6 @@
 Copy example env file and configure CONTAINER_NAME, DATA_FOLDER and PORTAINER_DOMAIN.
 ```
 cp .env-example .env
-
 ```
 Start the container as daemon.
 ```
