@@ -7,7 +7,7 @@ all: build up
 include .env
 
 # Compose targets
-build:
+build: .env
 	sudo mkdir -p $(DATA_FOLDER)
 	sudo chown root:www-data $(DATA_FOLDER)
 	sudo chmod g+rw $(DATA_FOLDER)
