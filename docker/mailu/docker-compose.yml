@@ -2,10 +2,9 @@
 # Please read the documentation before attempting any change.
 # Generated for compose flavor
 
-version: '2.2'
+version: "2.2"
 
 services:
-
   # External dependencies
   redis:
     image: redis:alpine
@@ -25,8 +24,8 @@ services:
     logging:
       driver: json-file
     ports:
-      - "194.163.136.152:80:80"
-      - "194.163.136.152:12443:443"
+      - "194.163.136.152:13080:80"
+      - "194.163.136.152:13443:443"
       - "194.163.136.152:25:25"
       - "194.163.136.152:465:465"
       - "194.163.136.152:587:587"
@@ -35,8 +34,8 @@ services:
       - "194.163.136.152:143:143"
       - "194.163.136.152:993:993"
     volumes:
-      - "/etc/swag/etc/letsencrypt/archive/justaname.de/:/certs"
-      #- "$DATA_FOLDER/certs:/certs"
+      - /srv/docker/swag/etc/letsencrypt/live/$DOMAIN/fullchain.pem:/certs/fullchain.pem:ro
+      - /srv/docker/swag/etc/letsencrypt/live/$DOMAIN/privkey.pem:/certs/privkey.pem:ro
       - "$DATA_FOLDER/overrides/nginx:/overrides:ro"
     depends_on:
       - resolver
@@ -105,7 +104,6 @@ services:
       - 192.168.203.254
 
   # Optional services
-
 
   fetchmail:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.9}
