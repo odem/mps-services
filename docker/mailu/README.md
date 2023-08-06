@@ -1,6 +1,6 @@
 
-# Nextcloud config
-Copy example env file and configure CONTAINER_NAME, DATA_FOLDER and NEXTCLOUD_DOMAIN.
+# Mailu config
+Copy example env file and configure relevant variables.
 ```
 cp .env-example .env
 ```
