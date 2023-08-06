@@ -1,5 +1,5 @@
 # Makefile Setup
-.PHONY: default all build up down restart exec purge
+.PHONY: default all install build up down restart exec purge
 default:all
 all: build up
 
