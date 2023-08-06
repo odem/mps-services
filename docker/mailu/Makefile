@@ -1,5 +1,5 @@
 # Makefile Setup
-.PHONY: default all build up down restart exec purge
+.PHONY: default all build up down restart configure exec purge
 default:all
 all: build up
 
@@ -18,9 +18,13 @@ down:
 	docker-compose down
 restart: build
 	docker-compose restart
+configure:
+	docker-compose up -d
+	sleep 10
+	docker-compose \
+		-p mailu exec admin flask mailu admin postmaster \
+		$(DOMAIN) $(DEFAULT_PASSWORD)
 exec:
 	docker exec -it $(CONTAINER_NAME) bash
-account:
-	docker-compose -p mailu exec admin flask mailu admin postmaster $(DOMAIN) PASSWORD
 purge: down
 	sudo rm -rf $(DATA_FOLDER)/*
