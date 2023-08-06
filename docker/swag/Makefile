@@ -6,6 +6,13 @@ all: build up
 # Makefile config
 include .env
 
+install:
+	sudo apt install nginx docker.io docker-compose
+	sudo cp nginx.conf /etc/nginx/nginx.conf
+	sudo cp nginx-sites-default.conf /etc/nginx/sites-available/default
+	sudo sed "s/DUMMYDOMAIN/$(SWAG_DOMAIN)/g" -i /etc/nginx/sites-available/default
+
+
 # Compose targets
 build: .env
 	sudo mkdir -p $(DATA_FOLDER)
