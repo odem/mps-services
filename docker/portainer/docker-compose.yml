@@ -11,12 +11,14 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - localhost:10443:9443
-    command: --ssl
-      --sslcert /certs/fullchain.pem
+      - 11443:9443
+    command: --sslcert /certs/fullchain.pem
       --sslkey /certs/privkey.pem
+    entrypoint:
+      - "/portainer"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - $DATA_FOLDER:/data
-      - /etc/swag/etc/letsencrypt/live/$PORTAINER_DOMAIN:/certs:ro
+      - /srv/docker/swag/etc/letsencrypt/live/$PORTAINER_DOMAIN/fullchain.pem:/certs/fullchain.pem:ro
+      - /srv/docker/swag/etc/letsencrypt/live/$PORTAINER_DOMAIN/privkey.pem:/certs/privkey.pem:ro
