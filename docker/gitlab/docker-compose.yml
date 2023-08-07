@@ -2,23 +2,24 @@ version: "2"
 services:
   gitlab:
     image: "gitlab/gitlab-ce:latest"
+    env_file: .env
     restart: always
     hostname: "gitlab.$GITLAB_DOMAIN"
     environment:
       GITLAB_DOMAIN: $GITLAB_DOMAIN
       GITLAB_SKIP_UNMIGRATED_DATA_CHECK: "true"
       GITLAB_OMNIBUS_CONFIG: |
-        registry_external_url "https://registry.$GITLAB_DOMAIN"
-        mattermost_external_url "https://mattermost.$GITLAB_DOMAIN"
-        external_url 'https://gitlab.$GITLAB_DOMAIN:14443'
+        registry_external_url "http://registry.$GITLAB_DOMAIN"
+        mattermost_external_url "http://mattermost.$GITLAB_DOMAIN"
+        external_url 'http://gitlab.$GITLAB_DOMAIN'
         gitlab_rails['gitlab_shell_ssh_port'] = 14022
-        letsencrypt['enable'] = true
-        letsencrypt['contact_emails'] = ['gitlab@$GITLAB_DOMAIN']
-        letsencrypt['auto_renew_hour'] = "12"
-        letsencrypt['auto_renew_minute'] = "30"
-        letsencrypt['auto_renew_day_of_month'] = "*/7"
+        #letsencrypt['enable'] = true
+        #letsencrypt['contact_emails'] = ['gitlab@$GITLAB_DOMAIN']
+        #letsencrypt['auto_renew_hour'] = "12"
+        #letsencrypt['auto_renew_minute'] = "30"
+        #letsencrypt['auto_renew_day_of_month'] = "*/7"
     ports:
-      - "0.0.0.0:14443:14443"
+      - "127.0.0.1:14080:80"
       - "0.0.0.0:14022:22"
     volumes:
       - "$GITLAB_HOME/config:/etc/gitlab"
