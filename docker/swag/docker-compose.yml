@@ -16,11 +16,16 @@ services:
       - URL=$SWAG_DOMAIN
       - SUBDOMAINS=$SWAG_SUBDOMAINS
       - VALIDATION=http
+      - CERTPROVIDER= #optional
       - DNSPLUGIN=cloudflare #optional
+      - PROPAGATION= #optional
+      - EMAIL= #optional
       - ONLY_SUBDOMAINS=false #optional
+      - EXTRA_DOMAINS= #optional
       - STAGING=false #optional
     volumes:
       - $DATA_FOLDER:/config
     ports:
+      - 10443:443
       - 10080:80
     restart: unless-stopped

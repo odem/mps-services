@@ -26,8 +26,8 @@ services:
       options:
         tag: mailu-front
     ports:
-      - "$PUBLIC_IP:13080:80"
-      - "$PUBLIC_IP:13443:443"
+      - "127.0.0.1:13080:80"
+      - "127.0.0.1:13443:443"
       - "$PUBLIC_IP:25:25"
       - "$PUBLIC_IP:465:465"
       - "$PUBLIC_IP:587:587"

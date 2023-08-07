@@ -9,9 +9,10 @@ include .env
 install:
 	sudo apt install nginx docker.io docker-compose
 	sudo cp nginx.conf /etc/nginx/nginx.conf
-	sudo cp nginx-sites-default.conf /etc/nginx/sites-available/default
-	sudo sed "s/DUMMYDOMAIN/$(SWAG_DOMAIN)/g" -i /etc/nginx/sites-available/default
-
+	sudo cp nginx-index.html /var/www/html/index.html
+	sudo cp nginx-sites-swag.conf /etc/nginx/sites-available/swag
+	sudo cp nginx-sites-mps.conf /etc/nginx/sites-available/mps
+	sudo sed "s/DUMMYDOMAIN/$(SWAG_DOMAIN)/g" -i /etc/nginx/sites-available/mps
 
 # Compose targets
 build: .env
@@ -20,7 +21,7 @@ build: .env
 	sudo chmod g+rw $(DATA_FOLDER)
 	docker-compose build
 up: build
-	docker-compose up -d
+	docker-compose up #-d
 down:
 	docker-compose down
 restart: build
