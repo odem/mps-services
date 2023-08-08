@@ -20,11 +20,6 @@ mps:
 		make -C $$service up ; \
 	done
 
-cron-daily:
-	make swag
-	/home/jb/mps/snippets/backup.bash
-	make mps
-
 down:
 	make -C swag down
 	make -C nginx down
