@@ -10,7 +10,7 @@ default:all
 
 all: build up
 
-prepare:
+prepare: .env
 	mkdir -p $(DATA_FOLDER)
 	mkdir -p $(DATA_FOLDER)/logs
 	mkdir -p $(CERT_FOLDER)/srv/status
@@ -19,8 +19,8 @@ prepare:
 	touch $(CERT_FOLDER)/srv/status/ipp.txt
 	touch $(CERT_FOLDER)/srv/status/openvpn_status.log
 	sudo apt install uml-utilities openvpn
-	
-$(CFG_FILE): 
+
+$(CFG_FILE):
 	./create_certs_vpn.bash -o docker-data/certs -R 194.163.136.152 \
 		-r $(RSA_SIZE) -a 256 -d 3650 -s $(OPENVPN_DOMAIN) -y -S -C -p -t all \
 		-u odemwin,odemlinux,gatekeeper,ns1,ns2,storage,nas
