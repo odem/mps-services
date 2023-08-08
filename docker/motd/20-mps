@@ -1,0 +1,2 @@
+#!/bin/sh
+make --no-print-directory -C /opt/mps-services/docker status #| sudo tee /etc/motd

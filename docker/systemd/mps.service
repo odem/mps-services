@@ -1,0 +1,16 @@
+[Unit]
+Description=Mps-Services
+After=sshd.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mps-services/docker/systemd/mps-start.bash
+ExecStopPost=/opt/mps-services/docker/systemd/mps-stop.bash
+; ExecStopPost=/opt/mps-services/docker/systemd/mps-stop.bash
+RemainAfterExit=yes
+; StandardInput=tty
+; StandardOutput=tty
+; StandardError=tty
+[Install]
+WantedBy=getty.target
+

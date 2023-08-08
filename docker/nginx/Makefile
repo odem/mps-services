@@ -1,8 +1,10 @@
-# Makefile Setup
-.PHONY: default all install build up down restart exec purge
+.PHONY: default all install build up down restart status exec purge
 default:all
 
+# Makefile Setup
 include .env
+SHELL:=/bin/bash
+NAME:=nginx
 
 install:
 	sudo apt install nginx docker.io docker-compose
@@ -18,6 +20,12 @@ swag: down
 mps: down
 	sudo ln -s /etc/nginx/sites-available/mps /etc/nginx/sites-enabled
 	sudo systemctl start nginx.service
+status:
+	@echo -n "$(NAME)     : "
+	@CODE=`curl -I www.$(NGINX_DOMAIN) 2>/dev/null | head -n 1 | cut -d' ' -f2` ; \
+		echo -n "HTTP($$CODE ) -> "
+	@MODE=`ls /etc/nginx/sites-enabled/ | grep 'swag\|mps'` ; \
+		echo "MODE  $$MODE" ;
 
 down:
 	sudo rm -rf /etc/nginx/sites-enabled/swag

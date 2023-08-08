@@ -1,6 +1,9 @@
-# Makefile Setup
-.PHONY: default install swag mps cron-daily down
+.PHONY: default install cron-daily status
 default:all
+
+# Makefile Setup
+SHELL:=/bin/bash
+NAME:=cron
 
 install:
 	sudo apt install cron
@@ -13,3 +16,5 @@ cron-daily:
 	./backup-daily.bash
 	make -C .. mps
 
+status:
+	@sudo crontab -l | grep -v "#"
