@@ -4,7 +4,6 @@ services:
     image: "gitlab/gitlab-ce:latest"
     env_file: .env
     restart: always
-    hostname: "gitlab.$GITLAB_DOMAIN"
     environment:
       GITLAB_DOMAIN: $GITLAB_DOMAIN
       GITLAB_SKIP_UNMIGRATED_DATA_CHECK: "true"
@@ -18,6 +17,7 @@ services:
         #letsencrypt['auto_renew_hour'] = "12"
         #letsencrypt['auto_renew_minute'] = "30"
         #letsencrypt['auto_renew_day_of_month'] = "*/7"
+    hostname: "gitlab.$GITLAB_DOMAIN"
     ports:
       - "127.0.0.1:14080:80"
       - "0.0.0.0:14022:22"

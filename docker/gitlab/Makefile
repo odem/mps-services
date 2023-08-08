@@ -13,7 +13,7 @@ build: .env
 up: build
 	docker-compose up -d
 down:
-	docker-compose down
+	docker-compose down 1>&2 2>/dev/null
 restart: build
 	docker-compose restart
 exec:
