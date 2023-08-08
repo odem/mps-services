@@ -21,7 +21,7 @@ prepare: .env
 	sudo apt install uml-utilities openvpn
 
 $(CFG_FILE):
-	./create_certs_vpn.bash -o docker-data/certs -R 194.163.136.152 \
+	./create_certs_vpn.bash -o docker-data/certs -R $(OPENVPN_HOSTIP) \
 		-r $(RSA_SIZE) -a 256 -d 3650 -s $(OPENVPN_DOMAIN) -y -S -C -p -t all \
 		-u odemwin,odemlinux,gatekeeper,ns1,ns2,storage,nas
 	#sudo chown $(USER):$(USER) -R $(DATA_FOLDER)/certs/
