@@ -1,8 +1,22 @@
 # Makefile Setup
 .PHONY: default install autostart swag mps status cron-daily down
-default:status
+default:usage
 
 OBJS := nextcloud mailu gitlab portainer vpn
+
+usage:
+	@echo ""
+	@echo "make TARGET"
+	@echo ""
+	@echo "    TARGET:"
+	@echo "       install   : Installs prerequisites"
+	@echo "       autostart : Updates swag and starts mps"
+	@echo "       swagrenew : Updates and stops swag to allow renewal"
+	@echo "       swag      : Starts the swag container"
+	@echo "       mps       : Starts all mps services"
+	@echo "       status    : Status of all components"
+	@echo "       down      : Stops all services"
+	@echo ""
 
 install:
 	sudo apt install docker.io docker-compose
@@ -48,7 +62,7 @@ status:
 		| tr '\n' ',' | sed 's/,$$//'` ; echo "UDP: [ $$PORTS ]"
 	@echo ""
 	@echo "Connections: "
-	@ss -tonp | grep -v "Local" | awk '{ print $$4 "<->" $$5 " " $$6 }'
+	@sudo ss -tonp | grep -v "Local" | awk '{ print $$4 "<->" $$5 " " $$6 }'
 	@echo ""
 	@echo "Cronjobs: "
 	@make --no-print-directory -C cron status
