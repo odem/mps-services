@@ -1,0 +1,36 @@
+version: "2"
+services:
+  lam:
+    image: ghcr.io/ldapaccountmanager/lam:9.1.rc1
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
+    hostname: "lam.$LDAP_DOMAIN"
+    environment:
+      - LAM_PASSWORD=${LAM_PASSWORD}
+      - LAM_LANG=en_US
+      - LDAP_SERVER=${LDAP_SERVER}
+      - LDAP_DOMAIN=${LDAP_DOMAIN}
+      - LDAP_BASE_DN=${LDAP_BASE_DN}
+      - LDAP_USER=cn=admin,${LDAP_BASE_DN}
+      - DEBUG=true
+  ldap:
+    image: ldap
+    build: .
+    cap_add:
+      - ALL
+    container_name: $CONTAINER_NAME
+    restart: always
+    hostname: "$CONTAINER_NAME.$LDAP_DOMAIN"
+    ports:
+      - "127.0.0.1:389:389"
+      - "127.0.0.1:636:636"
+    environment:
+      - CONTAINER_NAME=$CONTAINER_NAME
+      - DATA_FOLDER=$DATA_FOLDER
+      - LDAP_DOMAIN=$LDAP_DOMAIN
+    volumes:
+      - "$DATA_FOLDER/logs:/var/log"
+      - "./keys:/etc/ldap/ssl"
+      - "./ldif:/tmp/ldif"
+    shm_size: "256m"

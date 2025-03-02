@@ -1,0 +1,21 @@
+
+dn: ou=groups,dc=justaname,dc=de
+ou: groups
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=users,dc=justaname,dc=de
+ou: users
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=binduser,dc=justaname,dc=de
+ou: binduser
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=projects,dc=justaname,dc=de
+ou: projects
+objectClass: top
+objectClass: organizationalUnit
+

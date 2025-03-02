@@ -1,0 +1,22 @@
+dn: cn=posixGruppe0,ou=groups,dc=justaname,dc=de
+cn: posixGruppe0
+objectClass: top
+objectClass: posixGroup
+gidNumber: 10000
+
+dn: uid=john,ou=users,dc=justaname,dc=de
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: John Doe
+sn: Doe
+uid: john
+uidNumber: 10000
+gidNumber: 10000
+homeDirectory: /home/john
+loginShell: /bin/bash
+userPassword: {SSHA}roMD2r3TLUpPmWSO/T2sU8YoUrqAp30m
+
+
+
+
